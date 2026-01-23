@@ -1,4 +1,4 @@
-# Book Recommendation System (C++ | OOP)
+# Book Recommendation System (C++ | OOP | Academic Project)
 
 ## Project Overview
 This is a simple **Book Recommendation System** developed using **C++** and **Object-Oriented Programming (OOP)** concepts.  
