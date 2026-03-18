@@ -1,6 +1,7 @@
-﻿#ifndef BOOK_H
+#ifndef BOOK_H
 #define BOOK_H
 
+#include <iosfwd>
 #include <string>
 
 class Book {
@@ -27,6 +28,10 @@ public:
 
     bool isValid() const;
     void applyNewRating(int score);
+    void applyRatingUpdate(int oldScore, int newScore);
+    bool operator==(const Book& other) const;
+    bool operator<(const Book& other) const;
+    friend std::ostream& operator<<(std::ostream& os, const Book& book);
 
 private:
     int id;

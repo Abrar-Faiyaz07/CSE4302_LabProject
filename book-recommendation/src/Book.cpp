@@ -1,4 +1,7 @@
-﻿#include "Book.h"
+#include "Book.h"
+#include "AppExceptions.h"
+
+#include <ostream>
 
 Book::Book()
     : id(0), year(0), avgRating(0.0), ratingCount(0), popularity(0) {}
@@ -31,7 +34,7 @@ bool Book::isValid() const {
 
 void Book::applyNewRating(int score) {
     if (score < 1 || score > 5) {
-        return;
+        throw ValidationException("Rating score must be between 1 and 5.");
     }
 
     double total = avgRating * ratingCount;
@@ -39,4 +42,31 @@ void Book::applyNewRating(int score) {
     ++ratingCount;
     avgRating = total / ratingCount;
     ++popularity;
+}
+
+void Book::applyRatingUpdate(int oldScore, int newScore) {
+    if (oldScore < 1 || oldScore > 5 || newScore < 1 || newScore > 5 || ratingCount <= 0) {
+        throw ValidationException("Cannot update rating because the input values are invalid.");
+    }
+
+    double total = avgRating * ratingCount;
+    total -= oldScore;
+    total += newScore;
+    avgRating = total / ratingCount;
+}
+
+bool Book::operator==(const Book& other) const {
+    return id == other.id;
+}
+
+bool Book::operator<(const Book& other) const {
+    if (title == other.title) {
+        return id < other.id;
+    }
+    return title < other.title;
+}
+
+std::ostream& operator<<(std::ostream& os, const Book& book) {
+    os << book.getTitle() << " | " << book.getAuthor() << " | " << book.getGenre();
+    return os;
 }
