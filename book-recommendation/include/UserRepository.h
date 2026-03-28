@@ -7,7 +7,7 @@
 
 using namespace std;
 
-class{
+class UserRepository{
 public:
     bool load(const string& path);
     bool save(const string& path) const;
